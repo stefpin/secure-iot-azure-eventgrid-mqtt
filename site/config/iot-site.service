@@ -1,0 +1,21 @@
+[Unit]
+Description=Contoso mine-site agent (gateway gw-site1 + simulated machines)
+After=network-online.target strongswan.service
+Wants=network-online.target
+
+[Service]
+User=iotsite
+Group=iotsite
+EnvironmentFile=/etc/iot/site.env
+ExecStart=/opt/iot/venv/bin/python /opt/iot/agent/iot_site.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/var/lib/iot
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,476 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="Electron" agent="azure-drawio-architect-pack" type="device">
+  <diagram id="iot-asbuilt-1" name="01 - As-built architecture">
+    <mxGraphModel grid="0" page="1" pageWidth="2800" pageHeight="1750" background="#FFFFFF" shadow="0" math="0" arrows="1" connect="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Contoso Mining | Event Grid MQTT broker demo — as-built architecture v1.1" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=30;fontColor=#1B1B1B;fontStyle=1;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="2720" height="40" />
+        </mxCell>
+        <mxCell id="sub" value="Subscription your-subscription · Indonesia Central · resource group rg-iotmqtt-demo · suffix xxxxx · every resource tagged CostControl=Ignore · deployed and tested · replaces the v1.0 target design" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=17;fontColor=#5A5A5A;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="66" width="2720" height="30" />
+        </mxCell>
+        <mxCell id="legend" value="LINE LEGEND" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#605E5C;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="120" width="420" height="180" />
+        </mxCell>
+        <mxCell id="legend-t" value="&lt;font color='#0078D4'&gt;&lt;b&gt;■ Blue&lt;/b&gt;&lt;/font&gt; device MQTT path and routing&lt;br&gt;&lt;font color='#107C10'&gt;&lt;b&gt;■ Green&lt;/b&gt;&lt;/font&gt; application and data&lt;br&gt;&lt;font color='#5C2D91'&gt;&lt;b&gt;■ Purple&lt;/b&gt;&lt;/font&gt; network, VPN and DNS&lt;br&gt;&lt;font color='#CA5010'&gt;&lt;b&gt;■ Orange&lt;/b&gt;&lt;/font&gt; certificates and domain trust&lt;br&gt;&lt;font color='#605E5C'&gt;&lt;b&gt;■ Grey&lt;/b&gt;&lt;/font&gt; monitoring (dashed)&lt;br&gt;Arrows point from the side that opens the connection;&lt;br&gt;numbers 1–11 are explained at the bottom" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="58" y="150" width="395" height="145" />
+        </mxCell>
+        <mxCell id="global" value="GLOBAL AND EXTERNAL (outside the region)" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#605E5C;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="120" width="2280" height="180" />
+        </mxCell>
+        <mxCell id="ops" value="&lt;b&gt;Operators (internet)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;browser · basic auth&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Users.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="500" y="156" width="270" height="130" />
+        </mxCell>
+        <mxCell id="fd" value="&lt;b&gt;Front Door Standard · afd-iotmq-xxxxx (global)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;ops.iot.example.com · managed certificate&lt;br&gt;origin pip-ops HTTP 80 · NSG + X-Azure-FDID lock&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Front_Doors.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="840" y="156" width="550" height="130" />
+        </mxCell>
+        <mxCell id="cf" value="&lt;b&gt;Cloudflare DNS · example.com&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;NS records delegate iot.example.com to Azure DNS&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1430" y="156" width="340" height="130" />
+        </mxCell>
+        <mxCell id="dnspub" value="&lt;b&gt;Azure DNS public zone · iot.example.com&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;TXT _eg.mqtt (Event Grid custom-domain validation)&lt;br&gt;CNAME ops → Front Door endpoint · TXT _dnsauth.ops (Front Door domain validation)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/DNS_Zones.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1810" y="156" width="930" height="130" />
+        </mxCell>
+        <mxCell id="site" value="MINE SITE (SIMULATED)&lt;br&gt;&lt;span style='font-weight:normal;font-size:13px'&gt;vnet-site 10.50.0.0/16 · snet-site&lt;br&gt;no default outbound access&lt;/span&gt;" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="320" width="420" height="1175" />
+        </mxCell>
+        <mxCell id="pipsite" value="&lt;b&gt;pip-site · public IP&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;VPN peer address and the site's only outbound path&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Public_IP_Addresses.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="390" width="380" height="100" />
+        </mxCell>
+        <mxCell id="vmsite" value="vm-site1 · B2als_v2 · 10.50.1.10&lt;br&gt;&lt;span style='font-weight:normal;font-size:13px'&gt;no Azure identity · hosts every site role below&lt;/span&gt;" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="510" width="380" height="830" />
+        </mxCell>
+        <mxCell id="vmsite-i" value="" style="shape=image;html=1;image=img/lib/azure2/compute/Virtual_Machine.svg;aspect=fixed;imageAspect=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="398" y="518" width="32" height="32" />
+        </mxCell>
+        <mxCell id="swan" value="&lt;b&gt;strongSwan site router&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;IPsec IKEv2 tunnel to vgw-hub · carries all site traffic&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="575" width="350" height="90" />
+        </mxCell>
+        <mxCell id="resolver" value="&lt;b&gt;Site resolver · conditional forwarders&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;~iot.example.com and ~ts.eventgrid.azure.net&lt;br&gt;→ 10.40.1.10 over the VPN&lt;br&gt;no private DNS zone is linked to vnet-site&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="680" width="350" height="130" />
+        </mxCell>
+        <mxCell id="gwsite" value="&lt;b&gt;Site agent gw-site1&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;gateway MQTT client · own 1-hour X.509 certificate&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="825" width="350" height="100" />
+        </mxCell>
+        <mxCell id="rpi" value="&lt;b&gt;Raspberry Pi (simulated machine)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;motor + thermal alarm&lt;br&gt;own EC P-256 key · 1-hour certificate&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/iot/Industrial_IoT.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="940" width="350" height="125" />
+        </mxCell>
+        <mxCell id="esp" value="&lt;b&gt;ESP32 (simulated machine)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;sensor node&lt;br&gt;own EC P-256 key · 1-hour certificate&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/other/Defender_Sensor.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="1080" width="350" height="125" />
+        </mxCell>
+        <mxCell id="site-note" value="All clients speak MQTT over mutual TLS to mqtt.iot.example.com:8883. Keys are generated on the device and never leave it." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="75" y="1222" width="350" height="105" />
+        </mxCell>
+        <mxCell id="site-prod" value="&lt;b&gt;In production&lt;/b&gt;&lt;br&gt;a real site firewall replaces strongSwan; VPN gateway VpnGw1AZ or ExpressRoute; DNS Private Resolver replaces the VM forwarders." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="1360" width="380" height="150" />
+        </mxCell>
+        <mxCell id="azure" value="AZURE · INDONESIA CENTRAL · rg-iotmqtt-demo" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#0078D4;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#0078D4;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="320" width="2280" height="1175" />
+        </mxCell>
+        <mxCell id="azure-facts" value="3 availability zones · no paired region" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#0078D4;fontStyle=0;align=right;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2210" y="329" width="530" height="22" />
+        </mxCell>
+        <mxCell id="hub" value="HUB VNET · vnet-hub 10.40.0.0/16" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="500" y="370" width="1060" height="945" />
+        </mxCell>
+        <mxCell id="gwsub" value="GatewaySubnet" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FAF8FD;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="520" y="455" width="240" height="355" />
+        </mxCell>
+        <mxCell id="vgw" value="&lt;b&gt;vgw-hub · VPN gateway&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;Basic · route-based&lt;br&gt;site-to-site IPsec IKEv2&lt;br&gt;peer: pip-site&lt;br&gt;&lt;i&gt;demo only — production: VpnGw1AZ or ExpressRoute&lt;/i&gt;&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Virtual_Network_Gateways.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="535" y="500" width="210" height="295" />
+        </mxCell>
+        <mxCell id="pdns" value="&lt;b&gt;Private DNS zones&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;VNet link: vnet-hub only&lt;br&gt;&lt;br&gt;&lt;b&gt;privatelink.&lt;/b&gt;&lt;br&gt;ts.eventgrid.azure.net&lt;br&gt;servicebus.windows.net&lt;br&gt;vaultcore.azure.net&lt;br&gt;documents.azure.com&lt;br&gt;&lt;br&gt;&lt;b&gt;iot.example.com&lt;/b&gt;&lt;br&gt;mqtt CNAME → namespace host&lt;br&gt;enroll A 10.40.1.10&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/DNS_Zones.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="520" y="830" width="240" height="465" />
+        </mxCell>
+        <mxCell id="snetapp" value="snet-app 10.40.1.0/24&lt;br&gt;&lt;span style='font-weight:normal;font-size:13px'&gt;nsg-app: 53, 443 ← 10.50.0.0/16&lt;br&gt;80 ← AzureFrontDoor.Backend&lt;/span&gt;" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FAF8FD;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="800" y="455" width="400" height="850" />
+        </mxCell>
+        <mxCell id="nsg-i" value="" style="shape=image;html=1;image=img/lib/azure2/networking/Network_Security_Groups.svg;aspect=fixed;imageAspect=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1160" y="462" width="32" height="32" />
+        </mxCell>
+        <mxCell id="vmops" value="vm-ops · B2als_v2 · 10.40.1.10&lt;br&gt;&lt;span style='font-weight:normal;font-size:13px'&gt;public IP pip-ops = Front Door origin&lt;/span&gt;" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#107C10;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="815" y="530" width="370" height="765" />
+        </mxCell>
+        <mxCell id="vmops-i" value="" style="shape=image;html=1;image=img/lib/azure2/compute/Virtual_Machine.svg;aspect=fixed;imageAspect=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1145" y="537" width="32" height="32" />
+        </mxCell>
+        <mxCell id="nginx" value="&lt;b&gt;nginx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;443 · enroll.iot.example.com (private enrolment)&lt;br&gt;80 · Front Door origin: basic auth + X-Azure-FDID check&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="830" y="590" width="340" height="110" />
+        </mxCell>
+        <mxCell id="dnsmasq" value="&lt;b&gt;dnsmasq · hub DNS forwarder&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.1.10:53 → Azure DNS 168.63.129.16&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="830" y="715" width="340" height="85" />
+        </mxCell>
+        <mxCell id="app" value="&lt;b&gt;Operator web app · Node 24&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;identity id-iotmq-app&lt;br&gt;live MQTT (Entra ID JWT)&lt;br&gt;Kafka consumer → Cosmos DB history&lt;br&gt;quarantines data from revoked or unknown clients&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="830" y="815" width="340" height="140" />
+        </mxCell>
+        <mxCell id="certsvc" value="&lt;b&gt;Certificate service · Python&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;identity id-iotmq-certsvc&lt;br&gt;enrolment API (behind nginx 443) + MQTT renewal&lt;br&gt;signs with the Key Vault HSM key&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="830" y="970" width="340" height="140" />
+        </mxCell>
+        <mxCell id="ids" value="&lt;b&gt;User-assigned managed identities&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;id-iotmq-app · id-iotmq-certsvc&lt;br&gt;attached to vm-ops; Entra ID tokens for Event Grid, Event Hubs, Key Vault, Cosmos DB&lt;br&gt;RBAC details on page 2&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Managed_Identities.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="830" y="1125" width="340" height="155" />
+        </mxCell>
+        <mxCell id="snetpe" value="snet-pe&lt;br&gt;&lt;span style='font-weight:normal;font-size:13px'&gt;10.40.2.0/27&lt;/span&gt;" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#FAF8FD;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1290" y="455" width="250" height="850" />
+        </mxCell>
+        <mxCell id="peeg" value="&lt;b&gt;Event Grid MQTT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;topicSpace · 10.40.2.4&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1305" y="510" width="220" height="120" />
+        </mxCell>
+        <mxCell id="pekv" value="&lt;b&gt;Key Vault&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.2.6&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1305" y="760" width="220" height="120" />
+        </mxCell>
+        <mxCell id="peeh" value="&lt;b&gt;Event Hubs&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.2.5 · Kafka :9093&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1305" y="965" width="220" height="120" />
+        </mxCell>
+        <mxCell id="pecos" value="&lt;b&gt;Cosmos DB&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.2.7 / .8&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1305" y="1160" width="220" height="120" />
+        </mxCell>
+        <mxCell id="eg" value="&lt;b&gt;Event Grid namespace · egns-iotmq-xxxxx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;Standard · 1 TU · MQTT broker v3.1.1 + v5&lt;br&gt;custom domain mqtt.iot.example.com · certificate from Key Vault via the system identity&lt;br&gt;CA-chain client authentication · CA certificate iot-device-ca&lt;br&gt;retained messages: status (Last Will) · state · fleet config&lt;br&gt;public access: selected IPs only (placeholder 192.0.2.1/32)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/integration/Event_Grid_Topics.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="370" width="570" height="330" />
+        </mxCell>
+        <mxCell id="kv" value="&lt;b&gt;Key Vault Premium · kv-iotmq-xxxxx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;RBAC · public access disabled&lt;br&gt;HSM keys: iot-root-ca (RSA-HSM 3072, DISABLED = offline root) · iot-device-ca · iot-server-ca (RSA-HSM 2048)&lt;br&gt;CA certificates as secrets · MQTT server certificates mqtt-srv-&amp;lt;timestamp&amp;gt; (7 days, new name every rotation)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="735" width="570" height="170" />
+        </mxCell>
+        <mxCell id="eh" value="&lt;b&gt;Event Hubs Standard · ehns-iotmq-xxxxx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;Kafka endpoint :9093 · SAS disabled · public access disabled&lt;br&gt;Kafka topics telemetry · alerts (2 partitions)&lt;br&gt;Event Grid delivers as a trusted service with its managed identity&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/analytics/Event_Hubs.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="945" width="570" height="165" />
+        </mxCell>
+        <mxCell id="cosmos" value="&lt;b&gt;Cosmos DB serverless · cosmos-iotmq-xxxxx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;keyless (Entra ID only) · public access disabled&lt;br&gt;containers: telemetry (7-day TTL) · devices · tokens (1-day TTL) · certevents (30-day TTL)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="1145" width="570" height="150" />
+        </mxCell>
+        <mxCell id="nt" value="&lt;b&gt;Namespace topic · mqtt-routed&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;MQTT routing target&lt;br&gt;dynamic enrichments: site · profile · client&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/integration/Event_Grid_Topics.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2210" y="370" width="530" height="135" />
+        </mxCell>
+        <mxCell id="subs" value="&lt;b&gt;Push subscriptions → Event Hubs&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;es-telemetry: all iot/telemetry/*&lt;br&gt;es-alerts: data.temperature &amp;gt; 75&lt;br&gt;delivery with the namespace's managed identity&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/integration/Event_Grid_Subscriptions.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2210" y="535" width="530" height="165" />
+        </mxCell>
+        <mxCell id="clients" value="&lt;b&gt;Clients, client groups and topic spaces&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;&lt;br&gt;&lt;b&gt;Certificate clients&lt;/b&gt; (chain to iot-device-ca)&lt;br&gt;cg-devices → ts-dev-pub · ts-dev-sub&lt;br&gt;cg-gateways → ts-gw-pub · ts-gw-sub&lt;br&gt;authorised by permission bindings&lt;br&gt;&lt;br&gt;&lt;b&gt;Entra ID clients&lt;/b&gt; (OAUTH2-JWT, default hostname via the private endpoint)&lt;br&gt;operator app → ts-app-pub · ts-app-sub&lt;br&gt;certificate service → ts-certsvc&lt;br&gt;authorised by Azure RBAC: EventGrid TopicSpaces Publisher / Subscriber&lt;br&gt;&lt;br&gt;&lt;b&gt;Topics&lt;/b&gt;&lt;br&gt;iot/telemetry/* · retained status, state and fleet config · commands (MQTT 5 request/response) · iot/cert/{site}/{id}/req | res&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2260" y="735" width="480" height="560" />
+        </mxCell>
+        <mxCell id="itops" value="&lt;b&gt;IT / platform team&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;Entra ID sign-in&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Users.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="500" y="1345" width="280" height="130" />
+        </mxCell>
+        <mxCell id="grafana" value="&lt;b&gt;Azure Managed Grafana · amg-iotmq-xxxxx&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;Standard · Monitoring Reader on rg-iotmqtt-demo&lt;br&gt;3 dashboards&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/other/Grafana.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="820" y="1345" width="560" height="130" />
+        </mxCell>
+        <mxCell id="la" value="&lt;b&gt;Log Analytics + Application Insights&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;law-iotmq-xxxxx · appi-iotmq-xxxxx (workspace-based, local auth disabled)&lt;br&gt;diagnostic settings from Event Grid, Event Hubs, Key Vault, Cosmos DB, VPN gateway and Front Door&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/management_governance/Log_Analytics_Workspaces.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1600" y="1345" width="570" height="130" />
+        </mxCell>
+        <mxCell id="alerts" value="&lt;b&gt;Action group ag-iotmq-ops (email)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;6 metric alert rules + 3 log alert rules&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/management_governance/Alerts.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2210" y="1345" width="530" height="130" />
+        </mxCell>
+        <mxCell id="e-ops-fd" value="10" edge="1" parent="1" source="ops" target="fd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-cf-dns" value="NS" edge="1" parent="1" source="cf" target="dnspub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-eg-dns" value="TXT _eg.mqtt" edge="1" parent="1" source="eg" target="dnspub" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;exitX=0.614;exitY=0.0;exitDx=0;exitDy=0;entryX=0.1505;entryY=1.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" x="0.5" />
+        </mxCell>
+        <mxCell id="e-fd-nginx" value="10" edge="1" parent="1" source="fd" target="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.4727;exitY=1.0;exitDx=0;exitDy=0;entryX=0.7941;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" x="0.45" />
+        </mxCell>
+        <mxCell id="e-site-vgw" value="" edge="1" parent="1" source="swan" target="vgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=3;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4068;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vgw-nginx" value="1" edge="1" parent="1" source="vgw" target="nginx" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.4915;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vgw-dns" value="DNS" edge="1" parent="1" source="vgw" target="dnsmasq" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;exitX=1.0;exitY=0.8712;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4941;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vgw-peeg" value="3 · 4 · 8 · 9" edge="1" parent="1" source="vgw" target="peeg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=3;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.7857;exitY=0.0;exitDx=0;exitDy=0;entryX=0.7955;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" x="0.4">
+            <Array as="points">
+              <mxPoint x="700" y="425" />
+              <mxPoint x="1480" y="425" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-ops-peeg" value="5 · 8 · 9" edge="1" parent="1" source="vmops" target="peeg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.0523;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-ops-pekv" value="2" edge="1" parent="1" source="vmops" target="pekv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.3791;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-ops-peeh" value="7" edge="1" parent="1" source="vmops" target="peeh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.6471;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-ops-pecos" value="7" edge="1" parent="1" source="vmops" target="pecos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.902;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-peeg-eg" value="" edge="1" parent="1" source="peeg" target="eg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.6061;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-pekv-kv" value="" edge="1" parent="1" source="pekv" target="kv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-peeh-eh" value="" edge="1" parent="1" source="peeh" target="eh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4848;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-pecos-cos" value="" edge="1" parent="1" source="pecos" target="cosmos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#107C10;labelBackgroundColor=#FFFFFF;labelBorderColor=#107C10;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-eg-nt" value="6" edge="1" parent="1" source="eg" target="nt" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.203;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4963;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-nt-subs" value="" edge="1" parent="1" source="nt" target="subs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-subs-eh" value="6" edge="1" parent="1" source="subs" target="eh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0377;exitY=1.0;exitDx=0;exitDy=0;entryX=1.0;entryY=0.3333;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2230" y="1000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-eg-kv" value="" edge="1" parent="1" source="eg" target="kv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.1754;exitY=1.0;exitDx=0;exitDy=0;entryX=0.1754;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-cos-la" value="11" edge="1" parent="1" source="cosmos" target="la" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#605E5C;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#605E5C;labelBackgroundColor=#FFFFFF;labelBorderColor=#605E5C;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-graf-la" value="" edge="1" parent="1" source="grafana" target="la" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#605E5C;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#605E5C;labelBackgroundColor=#FFFFFF;labelBorderColor=#605E5C;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-alerts-la" value="" edge="1" parent="1" source="alerts" target="la" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#605E5C;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#605E5C;labelBackgroundColor=#FFFFFF;labelBorderColor=#605E5C;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-it-graf" value="" edge="1" parent="1" source="itops" target="grafana" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#605E5C;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#605E5C;labelBackgroundColor=#FFFFFF;labelBorderColor=#605E5C;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="flows-h" value="NUMBERED FLOWS (as tested)" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;fontStyle=1;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="1513" width="600" height="24" />
+        </mxCell>
+        <mxCell id="flows-1" value="&lt;b&gt;1&lt;/b&gt; Enrolment: the device creates its key and CSR and calls https://enroll.iot.example.com (10.40.1.10:443) through the VPN with a one-time token.&lt;br&gt;&lt;b&gt;2&lt;/b&gt; The certificate service signs with the Key Vault HSM key (iot-device-ca) through the Key Vault private endpoint.&lt;br&gt;&lt;b&gt;3&lt;/b&gt; The device connects with mutual TLS to mqtt.iot.example.com:8883 → CNAME → private endpoint 10.40.2.4.&lt;br&gt;&lt;b&gt;4&lt;/b&gt; Telemetry publish over the same MQTT session." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="1541" width="880" height="135" />
+        </mxCell>
+        <mxCell id="flows-2" value="&lt;b&gt;5&lt;/b&gt; Live data to the operator app over MQTT (Entra ID JWT, OAUTH2-JWT) using the namespace default hostname through the private endpoint.&lt;br&gt;&lt;b&gt;6&lt;/b&gt; Routing: every MQTT message → namespace topic mqtt-routed (site, profile, client) → es-telemetry and es-alerts → Event Hubs.&lt;br&gt;&lt;b&gt;7&lt;/b&gt; The app's Kafka consumer (SASL OAUTHBEARER, Entra ID) reads both topics and writes history to Cosmos DB.&lt;br&gt;&lt;b&gt;8&lt;/b&gt; Commands: MQTT 5 request/response between the app and the device." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="1541" width="880" height="135" />
+        </mxCell>
+        <mxCell id="flows-3" value="&lt;b&gt;9&lt;/b&gt; Renewal over MQTT at minute 40: iot/cert/{site}/{id}/req → signed certificate on iot/cert/{site}/{id}/res.&lt;br&gt;&lt;b&gt;10&lt;/b&gt; Operators: HTTPS to Front Door (basic auth) → HTTP 80 to pip-ops; nsg-app allows only AzureFrontDoor.Backend and nginx checks X-Azure-FDID.&lt;br&gt;&lt;b&gt;11&lt;/b&gt; Diagnostic settings → Log Analytics → Grafana dashboards and alert rules → action group e-mail." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1880" y="1541" width="880" height="135" />
+        </mxCell>
+        <mxCell id="foot1" value="As built and tested · 4 November 2026 · v1.1 replaces the v1.0 target design. Devices and apps reach PaaS services only through private endpoints; the namespace's public access is limited to a placeholder documentation address (192.0.2.1/32)." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#5A5A5A;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="1690" width="2720" height="44" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="iot-asbuilt-2" name="02 - Certificates, identities and DNS (as built)">
+    <mxGraphModel grid="0" page="1" pageWidth="2800" pageHeight="1260" background="#FFFFFF" shadow="0" math="0" arrows="1" connect="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Contoso Mining | Event Grid MQTT broker demo — certificates, identities and DNS (as built)" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=30;fontColor=#1B1B1B;fontStyle=1;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="2720" height="40" />
+        </mxCell>
+        <mxCell id="sub" value="Contoso runs its own CA in Key Vault Premium (HSM) · 1-hour device certificates renewed over MQTT · least-privilege managed identities · split-horizon DNS over the VPN · deployed and tested" style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=17;fontColor=#5A5A5A;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="66" width="2720" height="30" />
+        </mxCell>
+        <mxCell id="pki" value="CA HIERARCHY · keys in Key Vault Premium HSM (kv-iotmq-xxxxx), never exported" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#CA5010;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#CA5010;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="120" width="1000" height="600" />
+        </mxCell>
+        <mxCell id="root" value="&lt;b&gt;iot-root-ca · RSA-HSM 3072&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;key DISABLED = offline root&lt;br&gt;signs only the two issuing CAs&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="300" y="165" width="480" height="130" />
+        </mxCell>
+        <mxCell id="devca" value="&lt;b&gt;iot-device-ca · RSA-HSM 2048&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;issuing CA for devices and gateways&lt;br&gt;uploaded to Event Grid as CA certificate&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="355" width="466" height="140" />
+        </mxCell>
+        <mxCell id="srvca" value="&lt;b&gt;iot-server-ca · RSA-HSM 2048&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;name-constrained to iot.example.com&lt;br&gt;signs TLS server certificates only&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="549" y="355" width="466" height="140" />
+        </mxCell>
+        <mxCell id="devcert" value="&lt;b&gt;Device certificates&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;1 hour · EC P-256 keys&lt;br&gt;Raspberry Pi · ESP32&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="545" width="224" height="120" />
+        </mxCell>
+        <mxCell id="gwcert" value="&lt;b&gt;Gateway certificate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;gw-site1 · 1 hour&lt;br&gt;own key on the site agent&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="307" y="545" width="224" height="120" />
+        </mxCell>
+        <mxCell id="mqttcert" value="&lt;b&gt;MQTT server certificate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;mqtt-srv-&amp;lt;timestamp&amp;gt;&lt;br&gt;7 days · rotated on day 4 under a new Key Vault name&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="549" y="545" width="224" height="120" />
+        </mxCell>
+        <mxCell id="enrcert" value="&lt;b&gt;Enrolment TLS certificate&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;enroll.iot.example.com&lt;br&gt;7 days&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=15;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="791" y="545" width="224" height="120" />
+        </mxCell>
+        <mxCell id="pki-note" value="The three CA certificates are stored as Key Vault secrets. Root key disabled after signing = offline root." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="678" width="950" height="30" />
+        </mxCell>
+        <mxCell id="c-root-dev" value="" edge="1" parent="1" source="root" target="devca" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.25;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="420" y="325" />
+              <mxPoint x="298" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c-root-srv" value="" edge="1" parent="1" source="root" target="srvca" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.75;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="660" y="325" />
+              <mxPoint x="782" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="c-dev-cert" value="" edge="1" parent="1" source="devca" target="devcert" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.2403;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="c-dev-gw" value="" edge="1" parent="1" source="devca" target="gwcert" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.7597;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="c-srv-mqtt" value="" edge="1" parent="1" source="srvca" target="mqttcert" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.2403;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="c-srv-enr" value="" edge="1" parent="1" source="srvca" target="enrcert" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;labelBorderColor=#CA5010;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.7597;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="life" value="DEVICE CERTIFICATE LIFECYCLE (as tested)" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#0078D4;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#0078D4;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1060" y="120" width="1700" height="600" />
+        </mxCell>
+        <mxCell id="s1" value="&lt;b&gt;1 · Register&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;operator registers the device: Event Grid client with certificate authentication in its client group + one-time token (Cosmos tokens, 1-day TTL)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1085" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="s2" value="&lt;b&gt;2 · Enrol over HTTPS&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;device creates its EC P-256 key and CSR&lt;br&gt;HTTPS to enroll.iot.example.com through the VPN with the one-time token&lt;br&gt;receives a 1-hour certificate&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1364" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="s3" value="&lt;b&gt;3 · Connect&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;mutual TLS to mqtt.iot.example.com:8883 → private endpoint&lt;br&gt;Event Grid validates the chain against iot-device-ca&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1643" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="s4" value="&lt;b&gt;4 · Renew over MQTT&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;at 2/3 of the lifetime (minute 40): new key + CSR on iot/cert/{site}/{id}/req&lt;br&gt;signed certificate on iot/cert/{site}/{id}/res&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1922" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="s5" value="&lt;b&gt;5 · Re-enrol&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;certificate expired while offline: HTTPS enrolment with proof of the previous key, accepted within 24 h&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2201" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="s6" value="&lt;b&gt;6 · Revoke&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;Event Grid client disabled · renewals refused · operator app quarantines its data&lt;br&gt;&lt;i&gt;Event Grid refuses the next connect but did not end an open session in tests&lt;/i&gt;&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#A4262C;strokeWidth=1.6;dashed=1;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2480" y="165" width="255" height="185" />
+        </mxCell>
+        <mxCell id="l-12" value="" edge="1" parent="1" source="s1" target="s2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.4973;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4973;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="l-23" value="" edge="1" parent="1" source="s2" target="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.4973;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4973;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="l-34" value="" edge="1" parent="1" source="s3" target="s4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.4973;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4973;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="l-43" value="every hour" edge="1" parent="1" source="s4" target="s3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;exitX=0.502;exitY=1.0;exitDx=0;exitDy=0;entryX=0.498;entryY=1.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="2050" y="375" />
+              <mxPoint x="1770" y="375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="l-45" value="" edge="1" parent="1" source="s4" target="s5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.4973;exitDx=0;exitDy=0;entryX=0.0;entryY=0.4973;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="eg2" value="&lt;b&gt;Event Grid namespace&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;trusts iot-device-ca (CA certificate)&lt;br&gt;presents mqtt-srv-&amp;lt;timestamp&amp;gt; for mqtt.iot.example.com, read with its system identity&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/integration/Event_Grid_Topics.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1085" y="430" width="381" height="190" />
+        </mxCell>
+        <mxCell id="certsvc2" value="&lt;b&gt;Certificate service (vm-ops)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;enrolment API + MQTT renewal (ts-certsvc)&lt;br&gt;registers and disables Event Grid clients&lt;br&gt;rotates the server certificate (new name) and updates the custom domain&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/compute/Virtual_Machine.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1508" y="430" width="381" height="190" />
+        </mxCell>
+        <mxCell id="kv2" value="&lt;b&gt;Key Vault Premium&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;CA keys sign inside the HSM&lt;br&gt;iot-root-ca key disabled&lt;br&gt;3 CA certificates as secrets&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1931" y="430" width="381" height="190" />
+        </mxCell>
+        <mxCell id="cos2" value="&lt;b&gt;Cosmos DB&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;devices · tokens (1-day TTL) · certevents (30-day TTL)&lt;br&gt;telemetry (7-day TTL) is written by the operator app&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;imageWidth=40;imageHeight=40;imageAlign=center;imageVerticalAlign=top;spacingTop=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2354" y="430" width="381" height="190" />
+        </mxCell>
+        <mxCell id="k-svc-eg" value="" edge="1" parent="1" source="certsvc2" target="eg2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;labelBorderColor=#0078D4;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="k-svc-kv" value="sign" edge="1" parent="1" source="certsvc2" target="kv2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="k-svc-cos" value="devices · tokens · certevents" edge="1" parent="1" source="certsvc2" target="cos2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#107C10;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#107C10;labelBackgroundColor=#FFFFFF;exitX=0.8976;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5013;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1850" y="400" />
+              <mxPoint x="2545" y="400" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="k-eg-kv" value="server certificate (system identity)" edge="1" parent="1" source="eg2" target="kv2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#CA5010;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=1;fontFamily=Segoe UI;fontSize=12;fontStyle=0;fontColor=#CA5010;labelBackgroundColor=#FFFFFF;exitX=0.4987;exitY=1.0;exitDx=0;exitDy=0;entryX=0.4987;entryY=1.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1275" y="650" />
+              <mxPoint x="2121" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="idp" value="IDENTITIES AND RBAC (least privilege, as assigned)" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#107C10;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#107C10;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="750" width="1340" height="430" />
+        </mxCell>
+        <mxCell id="idapp" value="&lt;b&gt;id-iotmq-app · operator web app&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;EventGrid TopicSpaces Publisher → ts-app-pub&lt;br&gt;EventGrid TopicSpaces Subscriber → ts-app-sub&lt;br&gt;Reader → Event Grid namespace&lt;br&gt;Azure Event Hubs Data Receiver&lt;br&gt;Cosmos DB data contributor → telemetry container only&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#107C10;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Managed_Identities.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="795" width="632" height="175" />
+        </mxCell>
+        <mxCell id="idcert" value="&lt;b&gt;id-iotmq-certsvc · certificate service&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;EventGrid TopicSpaces Publisher + Subscriber → ts-certsvc&lt;br&gt;EventGrid Contributor → namespace&lt;br&gt;Key Vault Crypto User → keys iot-device-ca and iot-server-ca only&lt;br&gt;Key Vault Certificates Officer → vault&lt;br&gt;Key Vault Secrets User → the 3 CA secrets&lt;br&gt;Cosmos DB data contributor → devices, tokens, certevents&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#CA5010;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Managed_Identities.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="723" y="795" width="632" height="175" />
+        </mxCell>
+        <mxCell id="idegs" value="&lt;b&gt;Event Grid namespace · system-assigned identity&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;Key Vault Certificate User (custom-domain server certificate)&lt;br&gt;Azure Event Hubs Data Sender (push delivery)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Managed_Identities.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="990" width="632" height="100" />
+        </mxCell>
+        <mxCell id="idgraf" value="&lt;b&gt;Azure Managed Grafana · managed identity&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:14px' color='#5A5A5A'&gt;Monitoring Reader → rg-iotmqtt-demo&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#605E5C;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/identity/Managed_Identities.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="723" y="990" width="632" height="100" />
+        </mxCell>
+        <mxCell id="id-note" value="Devices and gw-site1 have no Azure identity: they are certificate clients authorised by Event Grid permission bindings (client group → topic space). vm-site1 has no managed identity." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="65" y="1105" width="1290" height="60" />
+        </mxCell>
+        <mxCell id="dnsp" value="DNS PATH FOR A SITE DEVICE (as built)" style="rounded=1;arcSize=2;html=1;whiteSpace=wrap;fillColor=#F7FAFC;strokeColor=#5C2D91;strokeWidth=1.5;dashed=0;fontFamily=Segoe UI;fontSize=15;fontStyle=1;fontColor=#5C2D91;align=left;verticalAlign=top;spacingLeft=16;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1420" y="750" width="1340" height="430" />
+        </mxCell>
+        <mxCell id="d1" value="&lt;b&gt;Device on vm-site1&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;looks up mqtt.iot.example.com&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/other/Defender_Sensor.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1445" y="795" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d2" value="&lt;b&gt;Site resolver&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;conditional forwarders ~iot.example.com and ~ts.eventgrid.azure.net → 10.40.1.10&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1775" y="795" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d3" value="&lt;b&gt;IPsec VPN&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;strongSwan on vm-site1 ↔ vgw-hub&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Virtual_Network_Gateways.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2105" y="795" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d4" value="&lt;b&gt;dnsmasq on vm-ops&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.1.10 → Azure DNS 168.63.129.16&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/compute/Virtual_Machine.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2435" y="795" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d5" value="&lt;b&gt;Azure DNS 168.63.129.16&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;answers from the private zones linked to vnet-hub&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=center;verticalAlign=top;spacing=8;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2435" y="955" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d6" value="&lt;b&gt;Private zone&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;iot.example.com&lt;br&gt;mqtt CNAME → namespace host&lt;br&gt;(…ts.eventgrid.azure.net)&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/DNS_Zones.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="2105" y="955" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d7" value="&lt;b&gt;Private zone&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;privatelink.ts.eventgrid.azure.net&lt;br&gt;namespace host → A 10.40.2.4&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/DNS_Zones.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1775" y="955" width="300" height="120" />
+        </mxCell>
+        <mxCell id="d8" value="&lt;b&gt;Event Grid private endpoint&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:13px' color='#5A5A5A'&gt;10.40.2.4 · topicSpace · :8883&lt;/font&gt;" style="rounded=1;arcSize=5;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.6;dashed=0;fontFamily=Segoe UI;fontSize=16;fontColor=#1B1B1B;align=left;verticalAlign=top;spacing=8;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=top;spacingLeft=48;spacingTop=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1445" y="955" width="300" height="120" />
+        </mxCell>
+        <mxCell id="n-12" value="" edge="1" parent="1" source="d1" target="d2" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-23" value="" edge="1" parent="1" source="d2" target="d3" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-34" value="" edge="1" parent="1" source="d3" target="d4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-45" value="" edge="1" parent="1" source="d4" target="d5" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-56" value="" edge="1" parent="1" source="d5" target="d6" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-67" value="" edge="1" parent="1" source="d6" target="d7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="n-78" value="" edge="1" parent="1" source="d7" target="d8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.2;endArrow=block;endFill=1;startArrow=none;startFill=1;jumpStyle=arc;jumpSize=12;dashed=0;fontFamily=Segoe UI;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;labelBorderColor=#5C2D91;spacingLeft=3;spacingRight=3;spacingTop=1;spacingBottom=1;exitX=0.0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="dns-note" value="&lt;b&gt;Forward both zones.&lt;/b&gt; The CNAME target lives in ts.eventgrid.azure.net, so the site resolver must forward that zone to the hub as well; otherwise the device resolves the namespace's public address.&lt;br&gt;Public side: Cloudflare delegates iot.example.com to the Azure DNS public zone (TXT _eg.mqtt, CNAME ops, TXT _dnsauth.ops)." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=14;fontColor=#1B1B1B;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1445" y="1090" width="1290" height="80" />
+        </mxCell>
+        <mxCell id="foot2" value="As built and tested · 4 November 2026 · v1.1. Sources: learn.microsoft.com/azure/event-grid — mqtt-certificate-chain-client-authentication, assign-custom-domain-name, mqtt-configure-private-endpoints, mqtt-routing, mqtt-request-response-messages." style="text;html=1;whiteSpace=wrap;fontFamily=Segoe UI;fontSize=13;fontColor=#5A5A5A;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="1200" width="2720" height="40" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

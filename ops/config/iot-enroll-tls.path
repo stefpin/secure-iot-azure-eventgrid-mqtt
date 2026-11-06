@@ -1,0 +1,8 @@
+[Unit]
+Description=Reload nginx when the enrolment TLS certificate is renewed
+
+[Path]
+PathChanged=/etc/iot/tls/enroll.crt
+
+[Install]
+WantedBy=multi-user.target

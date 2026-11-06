@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contoso IoT Operations - Event Grid MQTT</title>
+  <link rel="icon" href="img/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="app.js" type="module" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <button id="navToggle" class="icon-btn" title="Toggle navigation" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <img class="logo-iot" src="img/contoso-logo.svg" alt="Contoso Mining - fictional demo company" />
+    <span class="topbar-divider" aria-hidden="true"></span>
+    <h1 class="brand" id="appTitle">Contoso IoT Operations - Event Grid MQTT</h1>
+    <div class="spacer"></div>
+    <div class="powered" title="Device messaging on the Azure Event Grid MQTT broker; routed data on the Azure Event Hubs Kafka endpoint">
+      <span class="powered-label">Powered by <b>Azure Event Grid</b> and <b>Event Hubs</b></span>
+    </div>
+    <div class="user-chip">
+      <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="3.5" fill="currentColor"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="currentColor"/></svg>
+      <span id="userLabel">iot-operator (Operator)</span>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="sidenav" id="sidenav">
+      <div class="sidenav-title">Navigation</div>
+      <a href="#/dashboard" data-view="dashboard">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M3 17l5-6 4 4 5-8 4 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Monitoring Dashboard
+      </a>
+      <a href="#/devices" data-view="devices">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        Device Visibility
+      </a>
+      <a href="#/templates" data-view="templates">
+        <svg viewBox="0 0 24 24" width="15" height="15"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Device Onboarding
+      </a>
+      <a href="#/certificates" data-view="certificates">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Certificates
+      </a>
+      <a href="#/retained" data-view="retained">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M6 3h12v18l-6-4-6 4V3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+        Retained Messages
+      </a>
+      <a href="#/pipeline" data-view="pipeline">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="5" cy="12" r="2.5" fill="currentColor"/><circle cx="19" cy="6" r="2.5" fill="currentColor"/><circle cx="19" cy="18" r="2.5" fill="currentColor"/><path d="M7.5 12h4l5-6M11.5 12l5 6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        Message Pipeline
+      </a>
+      <a href="#/fleet" data-view="fleet">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Fleet Config
+      </a>
+      <a href="#/widgets" data-view="widgets">
+        <svg viewBox="0 0 24 24" width="15" height="15"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="currentColor" opacity=".6"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="currentColor" opacity=".6"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="currentColor" opacity=".35"/></svg>
+        Widgets
+      </a>
+      <a href="trace.html" data-view="behind-the-scenes" title="Follow one message through every Azure service">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="10.5" cy="10.5" r="6" stroke="currentColor" stroke-width="2" fill="none"/><path d="M15 15l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Behind the Scenes
+      </a>
+      <div class="sidenav-foot">
+        <div class="pill" id="modeBroker">Broker: …</div>
+        <div class="pill" id="modeKafka">Kafka: …</div>
+        <div class="pill" id="modeHistory">History: …</div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <!-- ============================================ Device Visibility -->
+      <section class="view" id="view-devices">
+        <div class="card">
+          <div class="card-head">
+            <h2>Available Devices</h2>
+            <div class="card-actions">
+              <button class="btn btn-green" id="btnCreateDevice">Create New Device</button>
+              <button class="btn btn-blue" id="btnConnectSummary">Connect Summary</button>
+              <button class="btn btn-red" id="btnDisconnectAll">Disconnect All</button>
+            </div>
+          </div>
+
+          <table class="grid" id="deviceTable">
+            <thead>
+              <tr>
+                <th>DEVICE ID</th>
+                <th>PROFILE</th>
+                <th>CERTIFICATE</th>
+                <th>EXPIRES IN</th>
+                <th>CREATED AT</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="deviceRows">
+              <tr><td colspan="7" class="empty">Loading devices…</td></tr>
+            </tbody>
+          </table>
+
+          <input type="search" id="deviceSearch" class="search" placeholder="Search device ID..." />
+          <div class="pager" id="devicePager"></div>
+          <p class="hint">Status comes from the device's <b>retained</b> MQTT status message - "offline" is published by the
+            broker itself (Last Will) when a connection drops. Certificates live 1 hour and renew themselves over MQTT.</p>
+        </div>
+      </section>
+
+      <!-- ========================================== Device Onboarding -->
+      <section class="view" id="view-templates">
+        <div class="card">
+          <div class="card-head"><h2>Device Onboarding</h2></div>
+          <p class="hint">Pick a hardware profile. The onboarding script hands a machine three things: its ID, a
+            <b>one-time enrolment token</b> and the public trust anchors. The machine generates its own key and gets its
+            certificate itself - nothing secret is ever copied onto it.</p>
+          <div class="template-grid" id="templateGrid"></div>
+        </div>
+        <div class="card code-card" id="scriptCard" hidden>
+          <div class="code-head">
+            <span id="scriptTitle">Onboarding Script</span>
+            <div class="code-head-actions">
+              <select id="scriptDevice" class="mini-select" title="Device to onboard"></select>
+              <button class="btn btn-ghost" id="btnNewToken" title="Issue a new one-time enrolment token for this device">New token</button>
+              <button class="btn btn-ghost" id="btnCopyScript">Copy</button>
+            </div>
+          </div>
+          <div class="script-note" id="scriptNote"></div>
+          <pre class="code"><code id="scriptBody"></code></pre>
+        </div>
+      </section>
+
+      <!-- ========================================= Monitoring Dashboard -->
+      <section class="view" id="view-dashboard">
+        <div class="card">
+          <div class="card-head">
+            <h2>Monitoring Dashboard</h2>
+            <div class="card-actions">
+              <select id="dashDevice" class="select"></select>
+              <button class="btn btn-blue" id="btnSeed" title="Generate 7 days of back-history for the charts">Seed History</button>
+              <button class="btn btn-light" id="btnRenew" title="Ask the device to renew its certificate over MQTT now">Renew Certificate</button>
+              <button class="btn btn-light" id="btnPowerLoss" title="Cut the machine's power for 20 s: it drops off without a clean disconnect, the broker publishes its Last Will, and the banner below shows when it is back">Simulate Power Loss</button>
+            </div>
+          </div>
+
+          <div class="pl-banner" id="plBanner" aria-live="polite" hidden></div>
+
+          <div class="timestamp-row">
+            <div class="timestamp" id="dashTimestamp">Timestamp: —</div>
+            <span class="conn-pill" id="dashConn" hidden></span>
+          </div>
+
+          <div class="widget-row" id="widgetRow">
+            <div class="widget" id="gaugeWidget">
+              <select id="gaugeMetric" class="widget-select"></select>
+              <div class="gauge-wrap">
+                <svg viewBox="0 0 200 120" class="gauge">
+                  <path id="gaugeTrack" d="M20 110 A80 80 0 0 1 180 110" fill="none" stroke="#3b4048" stroke-width="16" stroke-linecap="round"/>
+                  <path id="gaugeValue" d="" fill="none" stroke="#37c26a" stroke-width="16" stroke-linecap="round"/>
+                  <text x="18" y="119" class="gauge-tick">0</text>
+                  <text x="168" y="119" class="gauge-tick">100</text>
+                </svg>
+              </div>
+              <div class="gauge-value" id="gaugeValueText">—</div>
+            </div>
+
+            <div class="widget widget-motor" id="motorWidget"
+                 title="Sends a setMotorSpeed command (MQTT 5 request/response) through the Event Grid MQTT broker">
+              <div class="widget-label">Motor setpoint</div>
+              <div class="motor-readout">
+                <span id="motorTarget">—</span><span class="motor-unit">rpm</span>
+              </div>
+              <div class="motor-actual">actual <b id="motorActual">—</b> rpm</div>
+              <div class="motor-presets" id="motorPresets">
+                <button class="btn-xs" data-rpm="2000">Eco 2000</button>
+                <button class="btn-xs" data-rpm="4500">Normal 4500</button>
+                <button class="btn-xs" data-rpm="5900">Boost 5900</button>
+              </div>
+              <div class="motor-custom">
+                <input id="motorInput" class="motor-input" type="number" min="0" max="6000" step="100" placeholder="rpm" />
+                <button class="btn-xs" id="motorApply">Apply</button>
+              </div>
+              <div class="motor-status" id="motorStatus">Pick a speed to send a command</div>
+            </div>
+
+            <div class="widget widget-sm" id="buzzerWidget" title="Automatic thermal alarm - it trips when the windings run hot">
+              <div class="widget-label">Thermal alarm</div>
+              <div class="led led-off" id="buzzerLed"></div>
+              <div class="led-state" id="buzzerState">OFF</div>
+              <div class="widget-hint" id="buzzerHint">auto</div>
+            </div>
+
+            <div class="widget widget-sm" id="statWidget">
+              <div class="widget-label">Messages</div>
+              <div class="stat-value" id="statMessages">0</div>
+              <div class="led-state" id="statSource">waiting…</div>
+            </div>
+
+            <div class="widget widget-sm" id="certWidget" title="The device's current certificate - 1 hour, renewed at minute 40 over MQTT">
+              <div class="widget-label">Certificate</div>
+              <div class="stat-value" id="certCountdown">—</div>
+              <div class="led-state" id="certSerial">—</div>
+            </div>
+          </div>
+
+          <div class="chart-toolbar">
+            <select id="chartMetric" class="select select-sm"></select>
+            <div class="range-toggle" id="rangeToggle">
+              <button class="active" data-range="hourly">Hourly</button>
+              <button data-range="daily">Daily</button>
+              <button data-range="weekly">Weekly</button>
+            </div>
+            <span class="hint" id="chartSources"></span>
+          </div>
+          <div class="chart-wrap"><canvas id="historyChart"></canvas></div>
+        </div>
+      </section>
+
+      <!-- ================================================ Certificates -->
+      <section class="view" id="view-certificates">
+        <div class="card">
+          <div class="card-head"><h2>Certificate Authority</h2>
+            <div class="card-actions"><button class="btn btn-light" id="btnCertRefresh">Refresh</button></div></div>
+          <p class="hint">Contoso runs its own CA. The three CA keys are RSA keys inside the Key Vault Premium HSM and never
+            leave it - every certificate is signed there. The root key is <b>disabled</b> after it signed the two issuing CAs.</p>
+          <table class="grid" id="caTable"><tbody><tr><td class="empty">Loading…</td></tr></tbody></table>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>MQTT Endpoint Certificate</h2>
+            <div class="card-actions"><button class="btn btn-blue" id="btnRotateServer">Rotate Now</button></div></div>
+          <div id="serverCert" class="kv-grid">Loading…</div>
+          <p class="hint">7-day certificate for <b>mqtt.iot.example.com</b>, renewed automatically on day 4. Event Grid
+            caches the certificate per Key Vault certificate <i>name</i>, so every renewal is created under a new name and the
+            custom domain is switched to it - Event Grid serves it within about a minute.</p>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Device &amp; Gateway Certificates</h2></div>
+          <table class="grid">
+            <thead><tr><th>CLIENT</th><th>TYPE</th><th>STATE</th><th>SERIAL</th><th>LAST ISSUED</th><th>EXPIRES IN</th><th>ISSUED (ENROL / RENEW / RE-ENROL)</th><th>ACTION</th></tr></thead>
+            <tbody id="certRows"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Recent Certificate Events</h2></div>
+          <table class="grid">
+            <thead><tr><th>TIME</th><th>CLIENT</th><th>EVENT</th><th>SERIAL</th><th>DETAIL</th></tr></thead>
+            <tbody id="certEvents"><tr><td colspan="5" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- =========================================== Retained messages -->
+      <section class="view" id="view-retained">
+        <div class="card">
+          <div class="card-head"><h2>Retained Messages</h2>
+            <div class="card-actions">
+              <button class="btn btn-blue" id="btnLateJoiner">Run Late-Joiner Test</button>
+              <button class="btn btn-light" id="btnRetainedRefresh">Refresh</button>
+            </div></div>
+          <p class="hint">The broker keeps the <b>last retained message</b> of each topic and hands it to every new subscriber
+            immediately. Devices retain their status (online / offline via Last Will) and state; the fleet configuration is
+            retained too, so a device that was offline gets it the moment it connects.</p>
+          <div id="lateJoinerResult" class="late-result" hidden></div>
+          <table class="grid">
+            <thead><tr><th>TOPIC</th><th>VALUE</th><th>RECEIVED</th><th></th></tr></thead>
+            <tbody id="retainedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============================================== Message pipeline -->
+      <section class="view" id="view-pipeline">
+        <div class="card">
+          <div class="card-head"><h2>Message Pipeline - Routing &amp; Kafka</h2></div>
+          <div class="flow" id="flow">
+            <div class="flow-box">Devices<small>MQTT 5 · mTLS</small></div><div class="flow-arrow">→</div>
+            <div class="flow-box">Event Grid MQTT broker<small>topic spaces · RBAC</small></div><div class="flow-arrow">→</div>
+            <div class="flow-box">Routing<small>namespace topic + enrichments</small></div><div class="flow-arrow">→</div>
+            <div class="flow-box">Event Hubs<small>Kafka endpoint :9093</small></div><div class="flow-arrow">→</div>
+            <div class="flow-box">This app (Kafka consumer)<small>→ Cosmos DB history</small></div>
+          </div>
+          <div id="pipelineStats" class="kv-grid">Loading…</div>
+          <table class="grid" id="routingTable"></table>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Routed Alerts - filter <code>data.temperature &gt; 75</code> → Kafka topic "alerts"</h2></div>
+          <table class="grid">
+            <thead><tr><th>RECEIVED</th><th>DEVICE</th><th>TEMPERATURE</th><th>RPM / SETPOINT</th><th>SUBJECT</th><th>KAFKA OFFSET</th></tr></thead>
+            <tbody id="alertRows"><tr><td colspan="6" class="empty">No alert routed yet - press Boost on a Raspberry Pi machine.</td></tr></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-head"><h2>Routed CloudEvents (live, from Kafka)</h2></div>
+          <table class="grid">
+            <thead><tr><th>RECEIVED</th><th>KAFKA TOPIC</th><th>SUBJECT (MQTT TOPIC)</th><th>ENRICHMENTS</th><th>DATA</th></tr></thead>
+            <tbody id="kafkaRows"><tr><td colspan="5" class="empty">Waiting for events…</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================================================== Fleet config -->
+      <section class="view" id="view-fleet">
+        <div class="card">
+          <div class="card-head"><h2>Fleet Configuration</h2></div>
+          <p class="hint">Published as a <b>retained</b> message on <code>iot/config/fleet</code>. Connected machines apply it at
+            once; machines that are offline get it the moment they reconnect - no polling, no device twin.</p>
+          <div class="kv-grid" id="fleetCurrent">Loading…</div>
+          <div class="widget-config">
+            <label><span>Telemetry interval (s)</span><input class="select" id="fleetInterval" type="number" min="1" max="300" step="1" /></label>
+            <label><span>Renew certificate at (fraction of lifetime)</span><input class="select" id="fleetRenew" type="number" min="0.3" max="0.9" step="0.01" /></label>
+          </div>
+          <div class="modal-actions" style="justify-content:flex-start"><button class="btn btn-blue" id="btnPublishFleet">Publish (retained)</button></div>
+        </div>
+      </section>
+
+      <!-- ==================================================== Widgets -->
+      <section class="view" id="view-widgets">
+        <div class="card">
+          <div class="card-head"><h2>Widgets</h2></div>
+          <p class="hint">Choose which telemetry the dashboard widgets track. Settings are stored in your browser.</p>
+          <div class="widget-config" id="widgetConfig"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ============================================================ modals -->
+  <div class="modal-backdrop" id="createModal" hidden>
+    <div class="modal">
+      <h3>Create New Device</h3>
+      <input type="text" id="newDeviceId" placeholder="Enter device ID" autocomplete="off" />
+      <select id="newDeviceTemplate" class="select full"></select>
+      <div class="modal-msg" id="createMsg"></div>
+      <div class="token-box" id="tokenBox" hidden>
+        <div>One-time enrolment token (24 h):</div>
+        <code id="tokenValue"></code>
+        <button class="btn-xs" id="btnCopyToken">Copy</button>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-blue" id="btnShowScript" hidden>Show me the script</button>
+        <button class="btn btn-light" id="btnAddDevice">Add Device</button>
+        <button class="btn btn-light" id="btnDoneCreate">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="summaryModal" hidden>
+    <div class="modal modal-wide">
+      <h3>Connect Summary</h3>
+      <div id="summaryBody"></div>
+      <div class="modal-actions">
+        <button class="btn btn-light" id="btnCloseSummary">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+</body>
+</html>

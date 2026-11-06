@@ -1,0 +1,46 @@
+#cloud-config
+# vm-ops - operations VM in the hub VNet (10.40.1.10)
+#   * operator web app (Node 24 LTS) behind nginx, published through Azure Front Door
+#   * certificate service (Python) - enrolment over private HTTPS, renewals over MQTT
+#   * DNS forwarder for the mine site (production: Azure DNS Private Resolver)
+package_update: true
+packages:
+  - nginx
+  - dnsmasq
+  - python3-venv
+  - python3-dev
+  - build-essential
+  - openssl
+  - dnsutils
+  - jq
+  - apache2-utils
+write_files:
+  - path: /etc/dnsmasq.d/iot-hub.conf
+    content: |
+      # Hub DNS forwarder for the mine site. The site's resolver forwards
+      # iot.example.com here over the VPN; Azure DNS (168.63.129.16)
+      # then answers from the private DNS zones linked to the hub VNet.
+      listen-address=10.40.1.10
+      bind-interfaces
+      no-resolv
+      server=168.63.129.16
+      cache-size=1000
+      log-queries=extra
+      log-facility=/var/log/dnsmasq-iot.log
+  - path: /etc/logrotate.d/dnsmasq-iot
+    content: |
+      /var/log/dnsmasq-iot.log {
+        daily
+        rotate 3
+        compress
+        missingok
+        copytruncate
+      }
+runcmd:
+  - [bash, -c, "systemctl restart dnsmasq || true"]
+  - [bash, -c, "curl -fsSL https://deb.nodesource.com/setup_24.x | bash - && apt-get install -y nodejs"]
+  - [bash, -c, "id iotapp || useradd --system --create-home --home-dir /var/lib/iotapp --shell /usr/sbin/nologin iotapp"]
+  - [bash, -c, "id iotcert || useradd --system --create-home --home-dir /var/lib/iotcert --shell /usr/sbin/nologin iotcert"]
+  - [bash, -c, "mkdir -p /opt/iot/app /opt/iot/certsvc /etc/iot && chmod 755 /opt/iot /etc/iot"]
+  - [bash, -c, "python3 -m venv /opt/iot/certsvc/venv && /opt/iot/certsvc/venv/bin/pip install --quiet --upgrade pip && /opt/iot/certsvc/venv/bin/pip install --quiet 'paho-mqtt==2.1.0' cryptography azure-identity azure-keyvault-keys azure-keyvault-certificates azure-keyvault-secrets azure-cosmos fastapi 'uvicorn[standard]' requests azure-monitor-opentelemetry confluent-kafka"]
+  - [bash, -c, "touch /opt/iot/.ready"]

@@ -1,0 +1,30 @@
+# dependencies and build output
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# secrets and key material - never commit these
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+.env
+*.env
+iot-secrets/
+*password*.txt
+*psk*.txt
+ENVIRONMENT.txt
+
+# test results and logs
+tests/results-*.json
+tests/trace-results-*.txt
+*.log
+
+# editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Behind the scenes - Contoso IoT Operations</title>
+  <link rel="icon" href="img/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="trace.css" />
+  <script src="trace.js" type="module" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <button id="navToggle" class="icon-btn" title="Toggle navigation" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+    </button>
+    <img class="logo-iot" src="img/contoso-logo.svg" alt="Contoso Mining - fictional demo company" />
+    <span class="topbar-divider" aria-hidden="true"></span>
+    <h1 class="brand" id="appTitle">Contoso IoT Operations - Event Grid MQTT</h1>
+    <div class="spacer"></div>
+    <div class="powered" title="Device messaging on the Azure Event Grid MQTT broker; routed data on the Azure Event Hubs Kafka endpoint">
+      <span class="powered-label">Powered by <b>Azure Event Grid</b> and <b>Event Hubs</b></span>
+    </div>
+    <div class="user-chip">
+      <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="3.5" fill="currentColor"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0" fill="currentColor"/></svg>
+      <span id="userLabel">iot-operator (Operator)</span>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="sidenav" id="sidenav">
+      <div class="sidenav-title">Navigation</div>
+      <a href="./#/dashboard">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M3 17l5-6 4 4 5-8 4 5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Monitoring Dashboard
+      </a>
+      <a href="./#/devices">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        Device Visibility
+      </a>
+      <a href="./#/templates">
+        <svg viewBox="0 0 24 24" width="15" height="15"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Device Onboarding
+      </a>
+      <a href="./#/certificates">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 10-4-1.8-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        Certificates
+      </a>
+      <a href="./#/retained">
+        <svg viewBox="0 0 24 24" width="15" height="15"><path d="M6 3h12v18l-6-4-6 4V3Z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/></svg>
+        Retained Messages
+      </a>
+      <a href="./#/pipeline">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="5" cy="12" r="2.5" fill="currentColor"/><circle cx="19" cy="6" r="2.5" fill="currentColor"/><circle cx="19" cy="18" r="2.5" fill="currentColor"/><path d="M7.5 12h4l5-6M11.5 12l5 6" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        Message Pipeline
+      </a>
+      <a href="./#/fleet">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Fleet Config
+      </a>
+      <a href="./#/widgets">
+        <svg viewBox="0 0 24 24" width="15" height="15"><rect x="4" y="4" width="7" height="7" rx="1.5" fill="currentColor"/><rect x="13" y="4" width="7" height="7" rx="1.5" fill="currentColor" opacity=".6"/><rect x="4" y="13" width="7" height="7" rx="1.5" fill="currentColor" opacity=".6"/><rect x="13" y="13" width="7" height="7" rx="1.5" fill="currentColor" opacity=".35"/></svg>
+        Widgets
+      </a>
+      <a href="trace.html" class="active" aria-current="page">
+        <svg viewBox="0 0 24 24" width="15" height="15"><circle cx="10.5" cy="10.5" r="6" stroke="currentColor" stroke-width="2" fill="none"/><path d="M15 15l5.5 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7.5 10.5h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Behind the Scenes
+      </a>
+      <div class="sidenav-foot">
+        <div class="pill" id="modeBroker">Broker: …</div>
+        <div class="pill" id="modeKafka">Kafka: …</div>
+        <div class="pill" id="modeHistory">History: …</div>
+      </div>
+    </nav>
+
+    <main class="content">
+      <section class="card">
+        <div class="card-head">
+          <h2>Behind the Scenes - what each Azure service does</h2>
+          <div class="card-actions">
+            <label class="tr-label" for="trDevice">Machine</label>
+            <select class="select" id="trDevice"><option value="">Loading…</option></select>
+          </div>
+        </div>
+        <p class="hint">Follow <b>one real message</b> through the platform and see the timestamp every Azure service gave it - from the
+          machine to the operator app and Cosmos DB, and from the operator's click back to the machine. Nothing is simulated: the
+          view only watches the app's own traffic.</p>
+        <div class="tr-tabs" role="tablist">
+          <button class="tr-tab active" role="tab" id="tabReading" data-mode="reading" aria-selected="true">
+            <b>1</b> Follow one reading <span>machine → cloud</span>
+          </button>
+          <button class="tr-tab" role="tab" id="tabCommand" data-mode="command" aria-selected="false">
+            <b>2</b> Follow one command <span>cloud → machine</span>
+          </button>
+        </div>
+        <div class="tr-off" id="trOff" hidden>The Behind the Scenes view is turned off on this server (IOT_TRACE=off). Everything else works as usual.</div>
+      </section>
+
+      <!-- ===================================================== reading -->
+      <section class="card" id="panelReading">
+        <div class="card-head">
+          <h2>Follow one reading: <span id="rdTitleDevice">—</span> → Event Grid → Event Hubs (Kafka) → Cosmos DB</h2>
+          <div class="card-actions">
+            <span class="badge muted" id="rdStatus">ready</span>
+            <button class="btn btn-blue" id="btnFollowReading">Follow the next reading</button>
+          </div>
+        </div>
+        <p class="hint">Press <b>Follow the next reading</b>. The trace starts with the machine's next message (one every 5 seconds) and
+          follows it on both paths: <b>live</b> over MQTT to this app, and <b>routed</b> by Event Grid to Event Hubs, read back over Kafka
+          and stored in Cosmos DB. Each box turns green when that service has handled the message.</p>
+        <div class="tr-summary" id="rdSummary"></div>
+        <div class="tr-flow" id="rdFlow"></div>
+        <table class="grid tr-steps" id="rdSteps"></table>
+        <details class="tr-raw" id="rdRaw">
+          <summary>Show the message as each service saw it (MQTT payload → CloudEvent → Cosmos DB document)</summary>
+          <div class="tr-raw-grid" id="rdRawGrid"></div>
+        </details>
+      </section>
+
+      <!-- ===================================================== command -->
+      <section class="card" id="panelCommand" hidden>
+        <div class="card-head">
+          <h2>Follow one command: browser → Front Door → app → Event Grid → <span id="cmTitleDevice">—</span> and back</h2>
+          <div class="card-actions">
+            <span class="badge muted" id="cmStatus">ready</span>
+            <button class="btn btn-light" data-rpm="2000">Eco 2000 rpm</button>
+            <button class="btn btn-light" data-rpm="4500">Normal 4500 rpm</button>
+            <button class="btn btn-blue" data-rpm="5900">Boost 5900 rpm</button>
+            <button class="btn btn-light" id="btnLatestCommand" title="Show the latest command sent to this machine, for example from the Monitoring Dashboard">Latest command</button>
+          </div>
+        </div>
+        <p class="hint">Press a speed button - or send a command from the Monitoring Dashboard and press <b>Latest command</b>. The click
+          goes through Azure Front Door to the operator app, which publishes an <b>MQTT 5 request</b> to the machine's command topic; the
+          machine answers on its response topic and republishes its <b>retained</b> state.</p>
+        <div class="tr-summary" id="cmSummary"></div>
+        <div class="tr-flow" id="cmFlow"></div>
+        <table class="grid tr-steps" id="cmSteps"></table>
+        <div class="tr-evidence" id="cmEvidence" hidden></div>
+      </section>
+
+      <!-- ===================================================== device console -->
+      <section class="card" id="consoleCard">
+        <div class="card-head">
+          <h2>Device console: <span id="dcDevice">—</span> <small class="tr-sub">its own log, fetched through the site gateway over MQTT</small></h2>
+          <div class="card-actions">
+            <label class="tr-check"><input type="checkbox" id="dcAuto" /> refresh every 5 s</label>
+            <button class="btn btn-light" id="btnDeviceLog">Refresh</button>
+          </div>
+        </div>
+        <pre class="tr-console" id="dcLines">Press Refresh to load the last lines of the machine's log.</pre>
+      </section>
+
+      <p class="tr-foot">Times come from three clocks: the machine (vm-site1), Azure Event Grid and Event Hubs, and the operator VM (vm-ops).
+        A step marked ≈ crosses from one clock to another - a few milliseconds of difference between clocks is normal.</p>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" hidden></div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+[Unit]
+Description=Reload nginx with the renewed enrolment TLS certificate
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/nginx -t -q
+ExecStart=/bin/systemctl reload nginx

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 130" role="img" aria-label="ESP32 development board">
+  <defs>
+    <linearGradient id="pcb" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2f36"/>
+      <stop offset="1" stop-color="#16191e"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9edf1"/>
+      <stop offset="0.5" stop-color="#b9c1ca"/>
+      <stop offset="1" stop-color="#8f98a3"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="44" y="6" width="112" height="118" rx="6" fill="url(#pcb)"/>
+
+  <!-- gold meander antenna -->
+  <path d="M74 14h52M74 14v6h6v-6M86 14v6h6v-6M98 14v6h6v-6M110 14v6h6v-6"
+        stroke="#d8a83a" stroke-width="2.4" fill="none" stroke-linecap="square"/>
+
+  <!-- shielded module can -->
+  <rect x="66" y="27" width="68" height="44" rx="3" fill="url(#shield)" stroke="#78818c" stroke-width="1.2"/>
+  <text x="100" y="53" font-family="Segoe UI, Arial" font-size="12" font-weight="700"
+        fill="#4d545c" text-anchor="middle">ESP32</text>
+  <rect x="70" y="31" width="60" height="4" rx="2" fill="#cfd6dd" opacity=".8"/>
+
+  <!-- passives + button -->
+  <rect x="70" y="77" width="9" height="6" rx="1" fill="#4a5058"/>
+  <rect x="84" y="77" width="9" height="6" rx="1" fill="#4a5058"/>
+  <circle cx="122" cy="80" r="6" fill="#3b4149" stroke="#565d66" stroke-width="1.2"/>
+  <circle cx="122" cy="80" r="2.6" fill="#8b939c"/>
+  <circle cx="104" cy="80" r="2.6" fill="#e2513f"/>
+
+  <!-- micro USB -->
+  <rect x="86" y="106" width="28" height="16" rx="2" fill="#aeb6bf" stroke="#7e8792" stroke-width="1"/>
+  <rect x="90" y="110" width="20" height="6" rx="1" fill="#3a3f45"/>
+
+  <!-- pin headers -->
+  <rect x="44" y="26" width="12" height="76" fill="#12151a"/>
+  <rect x="144" y="26" width="12" height="76" fill="#12151a"/>
+  <g fill="#d8a83a">
+    <circle cx="50" cy="33" r="2.4"/><circle cx="50" cy="45" r="2.4"/><circle cx="50" cy="57" r="2.4"/>
+    <circle cx="50" cy="69" r="2.4"/><circle cx="50" cy="81" r="2.4"/><circle cx="50" cy="93" r="2.4"/>
+    <circle cx="150" cy="33" r="2.4"/><circle cx="150" cy="45" r="2.4"/><circle cx="150" cy="57" r="2.4"/>
+    <circle cx="150" cy="69" r="2.4"/><circle cx="150" cy="81" r="2.4"/><circle cx="150" cy="93" r="2.4"/>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+[Unit]
+Description=Contoso certificate service (registration authority for the Key Vault HSM CA)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=iotcert
+Group=iotcert
+EnvironmentFile=/etc/iot/certsvc.env
+WorkingDirectory=/opt/iot/certsvc/src
+ExecStart=/opt/iot/certsvc/venv/bin/python certsvc.py
+Restart=always
+RestartSec=5
+# Hardening: read-only system, writes only to the enrolment TLS folder.
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadWritePaths=/etc/iot/tls
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

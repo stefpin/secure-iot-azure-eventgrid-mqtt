@@ -1,0 +1,178 @@
+<mxfile host="Electron" agent="azure-drawio-architect-pack" type="device">
+  <diagram id="iot-deck-architecture" name="Architecture (deck v1.0)">
+    <mxGraphModel grid="0" page="1" pageWidth="1600" pageHeight="730" background="#FFFFFF" shadow="0" math="0" arrows="1" connect="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="legend" value="LEGEND" style="rounded=1;arcSize=3;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5B6472;strokeWidth=2;dashed=0;fontFamily=Inter;fontSize=14;fontStyle=1;fontColor=#5B6472;align=left;verticalAlign=top;spacingLeft=14;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="8" y="8" width="322" height="105" />
+        </mxCell>
+        <mxCell id="legend-a" value="&lt;font color='#0D8A52'&gt;&lt;b&gt;&amp;#9473;&amp;#9473;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; MQTT (mTLS)&lt;br&gt;&lt;font color='#B45309'&gt;&lt;b&gt;&amp;#9473;&amp;#9473;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; certificates&lt;br&gt;&lt;font color='#0078D4'&gt;&lt;b&gt;&amp;#9473;&amp;#9473;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; data and Kafka" style="text;html=1;whiteSpace=nowrap;fontFamily=Inter;fontSize=16;fontColor=#1F2A37;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="20" y="34" width="170" height="74" />
+        </mxCell>
+        <mxCell id="legend-b" value="&lt;font color='#5C2D91'&gt;&lt;b&gt;&amp;#9473;&amp;#9473;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; operators&lt;br&gt;&lt;font color='#374151'&gt;&lt;b&gt;&amp;#9473;&amp;#9473;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; IPsec VPN&lt;br&gt;&lt;font color='#6B7280'&gt;&lt;b&gt;&amp;#9476;&amp;#9476;&lt;/b&gt;&lt;/font&gt;&amp;nbsp; monitoring" style="text;html=1;whiteSpace=nowrap;fontFamily=Inter;fontSize=16;fontColor=#1F2A37;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="192" y="34" width="132" height="74" />
+        </mxCell>
+        <mxCell id="fd" value="&lt;b&gt;Azure Front Door&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;ops.iot.example.com&lt;br&gt;managed TLS · origin locked&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=20;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Front_Doors.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="8" width="330" height="105" />
+        </mxCell>
+        <mxCell id="ops" value="&lt;b&gt;Operators&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;web browser&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5C2D91;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=20;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/identity/Users.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="8" width="210" height="105" />
+        </mxCell>
+        <mxCell id="dns" value="&lt;b&gt;Azure DNS&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;iot.example.com&lt;br&gt;delegated from Cloudflare&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#5B6472;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=20;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/DNS_Zones.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="960" y="8" width="290" height="105" />
+        </mxCell>
+        <mxCell id="it" value="&lt;b&gt;IT / platform team&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;Entra ID sign-in&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#6B7280;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=20;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/identity/Users.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1280" y="8" width="312" height="105" />
+        </mxCell>
+        <mxCell id="site" value="" style="rounded=1;arcSize=3;html=1;whiteSpace=wrap;fillColor=#F0F8F3;strokeColor=#0A6F42;strokeWidth=2;dashed=0;fontFamily=Inter;fontSize=17;fontStyle=1;fontColor=#0A6F42;align=left;verticalAlign=top;spacingLeft=14;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="8" y="125" width="347" height="597" />
+        </mxCell>
+        <mxCell id="site-t" value="&lt;b&gt;&lt;font color='#0A6F42' style='font-size:19px'&gt;Contoso MINE SITE (SIMULATED)&lt;/font&gt;&lt;/b&gt;&lt;br&gt;10.50.0.0/16 · no Azure identity" style="text;html=1;whiteSpace=wrap;fontFamily=Inter;fontSize=16;fontColor=#1F2A37;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="22" y="131" width="325" height="50" />
+        </mxCell>
+        <mxCell id="machines" value="Machines and site gateway" style="rounded=1;arcSize=3;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=2;dashed=0;fontFamily=Inter;fontSize=17;fontStyle=1;fontColor=#0D8A52;align=left;verticalAlign=top;spacingLeft=14;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="22" y="186" width="319" height="320" />
+        </mxCell>
+        <mxCell id="pump1" value="&lt;b&gt;PUMP&amp;#8209;01 · pump&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;Raspberry Pi profile&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/iot/Industrial_IoT.svg;imageWidth=30;imageHeight=30;imageAlign=left;imageVerticalAlign=middle;spacingLeft=42;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="36" y="220" width="291" height="64" />
+        </mxCell>
+        <mxCell id="sensor1" value="&lt;b&gt;SENSOR&amp;#8209;01 · sensor&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;ESP32 profile&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/other/Defender_Sensor.svg;imageWidth=30;imageHeight=30;imageAlign=left;imageVerticalAlign=middle;spacingLeft=42;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="36" y="292" width="291" height="64" />
+        </mxCell>
+        <mxCell id="pump7" value="&lt;b&gt;PUMP&amp;#8209;07 · new pump&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;created live in the demo&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=1;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/iot/Industrial_IoT.svg;imageWidth=30;imageHeight=30;imageAlign=left;imageVerticalAlign=middle;spacingLeft=42;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="36" y="364" width="291" height="64" />
+        </mxCell>
+        <mxCell id="gw" value="&lt;b&gt;gw&amp;#8209;site1 · site gateway&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;runs the machine agents&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/other/Defender_RTU.svg;imageWidth=30;imageHeight=30;imageAlign=left;imageVerticalAlign=middle;spacingLeft=42;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="36" y="436" width="291" height="64" />
+        </mxCell>
+        <mxCell id="router" value="&lt;b&gt;Site router&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;IPsec VPN (strongSwan)&lt;br&gt;DNS forwarder&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=19;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Local_Network_Gateways.svg;imageWidth=34;imageHeight=34;imageAlign=left;imageVerticalAlign=middle;spacingLeft=46;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="22" y="545" width="319" height="103" />
+        </mxCell>
+        <mxCell id="site-note" value="Each machine makes its own key and gets a&amp;#160;1&amp;#8209;hour certificate." style="text;html=1;whiteSpace=wrap;fontFamily=Inter;fontSize=16;fontColor=#1F2A37;fontStyle=0;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="22" y="658" width="323" height="44" />
+        </mxCell>
+        <mxCell id="azure" value="AZURE · INDONESIA CENTRAL" style="rounded=1;arcSize=3;html=1;whiteSpace=wrap;fillColor=#F6F9FD;strokeColor=#0078D4;strokeWidth=2;dashed=0;fontFamily=Inter;fontSize=17;fontStyle=1;fontColor=#0078D4;align=left;verticalAlign=top;spacingLeft=14;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="372" y="125" width="1220" height="597" />
+        </mxCell>
+        <mxCell id="azure-facts" value="3 availability zones · no paired region" style="text;html=1;whiteSpace=wrap;fontFamily=Inter;fontSize=16;fontColor=#0078D4;fontStyle=0;align=right;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1110" y="130" width="390" height="24" />
+        </mxCell>
+        <mxCell id="hub" value="HUB VNET · 10.40.0.0/16" style="rounded=1;arcSize=3;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=2;dashed=1;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#374151;align=left;verticalAlign=top;spacingLeft=14;spacingTop=4;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="386" y="158" width="498" height="554" />
+        </mxCell>
+        <mxCell id="pe-h" value="Private endpoints" style="text;html=1;whiteSpace=wrap;fontFamily=Inter;fontSize=16;fontColor=#374151;fontStyle=1;align=left;verticalAlign=top;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="722" y="164" width="158" height="24" />
+        </mxCell>
+        <mxCell id="vmops" value="&lt;b&gt;Operations VM&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;operator web app&lt;br&gt;Contoso certificate service&lt;br&gt;DNS forwarder for the site&lt;br&gt;managed identities only&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=21;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/compute/Virtual_Machine.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="400" y="198" width="286" height="250" />
+        </mxCell>
+        <mxCell id="vgw" value="&lt;b&gt;VPN gateway&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;site-to-site IPsec&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#374151;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=19;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Virtual_Network_Gateways.svg;imageWidth=34;imageHeight=34;imageAlign=left;imageVerticalAlign=middle;spacingLeft=46;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="400" y="560" width="210" height="105" />
+        </mxCell>
+        <mxCell id="pekv" value="&lt;b&gt;Key Vault&lt;/b&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#B45309;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=16;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=26;imageHeight=26;imageAlign=left;imageVerticalAlign=middle;spacingLeft=38;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="722" y="198" width="152" height="68" />
+        </mxCell>
+        <mxCell id="peeh" value="&lt;b&gt;Event Hubs&lt;/b&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=16;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=26;imageHeight=26;imageAlign=left;imageVerticalAlign=middle;spacingLeft=38;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="722" y="280" width="152" height="68" />
+        </mxCell>
+        <mxCell id="pecos" value="&lt;b&gt;Cosmos DB&lt;/b&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=16;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=26;imageHeight=26;imageAlign=left;imageVerticalAlign=middle;spacingLeft=38;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="722" y="362" width="152" height="68" />
+        </mxCell>
+        <mxCell id="peeg" value="&lt;b&gt;Event Grid&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;10.40.2.4&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=16;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/networking/Private_Endpoint.svg;imageWidth=26;imageHeight=26;imageAlign=left;imageVerticalAlign=middle;spacingLeft=38;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="722" y="548" width="152" height="142" />
+        </mxCell>
+        <mxCell id="kv" value="&lt;b&gt;Key Vault Premium (HSM)&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;Contoso CA keys · root kept offline&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#B45309;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/security/Key_Vaults.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="912" y="198" width="320" height="68" />
+        </mxCell>
+        <mxCell id="eh" value="&lt;b&gt;Event Hubs · Kafka&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;topics: telemetry · alerts&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/analytics/Event_Hubs.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="912" y="280" width="320" height="68" />
+        </mxCell>
+        <mxCell id="cosmos" value="&lt;b&gt;Cosmos DB serverless&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;history · registry · audit&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/databases/Azure_Cosmos_DB.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="912" y="362" width="320" height="68" />
+        </mxCell>
+        <mxCell id="eg" value="&lt;b&gt;Event Grid MQTT broker&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;MQTT 3.1.1 and 5&lt;br&gt;mqtt.iot.example.com&lt;br&gt;X.509 CA-chain authentication&lt;br&gt;retained messages · Last Will&lt;br&gt;public access closed&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0D8A52;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=21;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/integration/Event_Grid_Topics.svg;imageWidth=40;imageHeight=40;imageAlign=left;imageVerticalAlign=middle;spacingLeft=52;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="912" y="520" width="320" height="192" />
+        </mxCell>
+        <mxCell id="grafana" value="&lt;b&gt;Azure Managed Grafana&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;3 dashboards: broker &amp;amp; routing, certificates, platform health&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#6B7280;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/other/Grafana.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1268" y="158" width="312" height="100" />
+        </mxCell>
+        <mxCell id="la" value="&lt;b&gt;Log Analytics + App Insights&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;metrics, logs and audit events&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#6B7280;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=17;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/management_governance/Log_Analytics_Workspaces.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1268" y="280" width="312" height="90" />
+        </mxCell>
+        <mxCell id="alerts" value="&lt;b&gt;Alerts&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;9 rules · e-mail to the IT team&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#6B7280;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=18;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/management_governance/Alerts.svg;imageWidth=32;imageHeight=32;imageAlign=left;imageVerticalAlign=middle;spacingLeft=44;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1268" y="392" width="312" height="68" />
+        </mxCell>
+        <mxCell id="routing" value="&lt;b&gt;Routing&lt;/b&gt;&lt;br&gt;&lt;font style='font-size:17px' color='#5B6472'&gt;namespace topic&lt;br&gt;+ enrichments&lt;br&gt;telemetry &amp;#8594; Event Hubs&lt;br&gt;alerts: temperature &amp;gt; 75&amp;#160;°C&lt;/font&gt;" style="rounded=1;arcSize=8;html=1;whiteSpace=wrap;fillColor=#FFFFFF;strokeColor=#0078D4;strokeWidth=1.8;dashed=0;fontFamily=Inter;fontSize=21;fontColor=#111827;align=left;verticalAlign=middle;spacing=7;shape=label;image=img/lib/azure2/integration/Event_Grid_Subscriptions.svg;imageWidth=36;imageHeight=36;imageAlign=left;imageVerticalAlign=middle;spacingLeft=48;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1268" y="520" width="312" height="192" />
+        </mxCell>
+        <mxCell id="e-ops-fd" value="" edge="1" parent="1" source="ops" target="fd" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.0;exitY=0.4952;exitDx=0;exitDy=0;entryX=1.0;entryY=0.4952;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-fd-vm" value="HTTPS" edge="1" parent="1" source="fd" target="vmops" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#5C2D91;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#5C2D91;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.9455;exitY=1.0;exitDx=0;exitDy=0;entryX=0.951;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" x="0.55" />
+        </mxCell>
+        <mxCell id="e-it-graf" value="" edge="1" parent="1" source="it" target="grafana" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6B7280;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#6B7280;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.8333;exitY=1.0;exitDx=0;exitDy=0;entryX=0.8718;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-mach-router" value="" edge="1" parent="1" source="machines" target="router" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0D8A52;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0D8A52;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.4984;exitY=1.0;exitDx=0;exitDy=0;entryX=0.4984;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-router-vgw" value="" edge="1" parent="1" source="router" target="vgw" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#374151;strokeWidth=5;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#374151;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.534;exitDx=0;exitDy=0;entryX=0.0;entryY=0.381;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vgw-vm" value="enrol" edge="1" parent="1" source="vgw" target="vmops" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#B45309;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#B45309;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.3671;entryY=1.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vgw-peeg" value="MQTT" edge="1" parent="1" source="vgw" target="peeg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0D8A52;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0D8A52;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.619;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5423;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vm-peeg" value="" edge="1" parent="1" source="vmops" target="peeg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.9091;exitY=1.0;exitDx=0;exitDy=0;entryX=0.0;entryY=0.2254;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="660" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-vm-pekv" value="" edge="1" parent="1" source="vmops" target="pekv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#B45309;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#B45309;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.136;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vm-peeh" value="" edge="1" parent="1" source="vmops" target="peeh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.464;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-vm-pecos" value="" edge="1" parent="1" source="vmops" target="pecos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.792;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-pekv-kv" value="" edge="1" parent="1" source="pekv" target="kv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#B45309;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#B45309;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-peeh-eh" value="" edge="1" parent="1" source="peeh" target="eh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-pecos-cos" value="" edge="1" parent="1" source="pecos" target="cosmos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-peeg-eg" value="" edge="1" parent="1" source="peeg" target="eg" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0D8A52;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0D8A52;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.507;exitDx=0;exitDy=0;entryX=0.0;entryY=0.5208;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-eg-routing" value="" edge="1" parent="1" source="eg" target="routing" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=1.0;exitY=0.625;exitDx=0;exitDy=0;entryX=0.0;entryY=0.625;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-routing-eh" value="" edge="1" parent="1" source="routing" target="eh" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#0078D4;strokeWidth=2.6;endArrow=block;endFill=1;endSize=5;dashed=0;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#0078D4;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.0;exitY=0.1302;exitDx=0;exitDy=0;entryX=1.0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1">
+            <Array as="points">
+              <mxPoint x="1250" y="545" />
+              <mxPoint x="1250" y="314" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-la-graf" value="" edge="1" parent="1" source="la" target="grafana" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6B7280;strokeWidth=2;endArrow=block;endFill=1;endSize=5;dashed=1;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#6B7280;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.5;exitY=0.0;exitDx=0;exitDy=0;entryX=0.5;entryY=1.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+        <mxCell id="e-la-alerts" value="" edge="1" parent="1" source="la" target="alerts" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#6B7280;strokeWidth=2;endArrow=block;endFill=1;endSize=5;dashed=1;fontFamily=Inter;fontSize=16;fontStyle=1;fontColor=#6B7280;labelBackgroundColor=#FFFFFF;spacingLeft=2;spacingRight=2;exitX=0.5;exitY=1.0;exitDx=0;exitDy=0;entryX=0.5;entryY=0.0;entryDx=0;entryDy=0;">
+          <mxGeometry as="geometry" relative="1" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,29 @@
+#cloud-config
+# vm-site1 - "mine site" simulator in its own VNet (10.50.1.10)
+#   * strongSwan: site-to-site IPsec VPN to the hub's Azure VPN gateway
+#   * site resolver: conditional forwarder for iot.example.com -> hub DNS (10.40.1.10)
+#   * site agent + device agents (Python) - the simulated machines
+package_update: true
+packages:
+  - strongswan-swanctl
+  - charon-systemd
+  - python3-venv
+  - openssl
+  - dnsutils
+  - jq
+write_files:
+  - path: /etc/systemd/resolved.conf.d/iot-site.conf
+    content: |
+      # Conditional forwarder: the company IoT zone AND the Event Grid zone go to the hub DNS
+      # forwarder through the VPN. The custom name is a CNAME to <ns>.<region>.ts.eventgrid.azure.net;
+      # the resolver looks that target up separately, so it must be forwarded too - otherwise it
+      # resolves to the PUBLIC endpoint, which the namespace's IP filter rejects.
+      [Resolve]
+      DNS=10.40.1.10
+      Domains=~iot.example.com ~ts.eventgrid.azure.net
+runcmd:
+  - [bash, -c, "systemctl restart systemd-resolved"]
+  - [bash, -c, "id iotsite || useradd --system --create-home --home-dir /var/lib/iot --shell /usr/sbin/nologin iotsite"]
+  - [bash, -c, "mkdir -p /opt/iot/agent /etc/iot /var/lib/iot/devices && chown -R iotsite:iotsite /var/lib/iot"]
+  - [bash, -c, "python3 -m venv /opt/iot/venv && /opt/iot/venv/bin/pip install --quiet --upgrade pip && /opt/iot/venv/bin/pip install --quiet 'paho-mqtt==2.1.0' cryptography requests"]
+  - [bash, -c, "touch /opt/iot/.ready"]

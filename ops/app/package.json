@@ -1,0 +1,23 @@
+{
+  "name": "iot-eventgrid-operator-app",
+  "version": "1.0.0",
+  "description": "Contoso operator dashboard for the Azure Event Grid MQTT broker demo (live view, commands, certificates, retained messages, Kafka pipeline)",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@azure/cosmos": "^4.2.0",
+    "@azure/identity": "^4.14.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "kafkajs": "^2.2.4",
+    "mqtt": "^5.10.4",
+    "socket.io": "^4.8.1"
+  }
+}
